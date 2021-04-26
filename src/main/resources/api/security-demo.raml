@@ -1,0 +1,44 @@
+#%RAML 1.0
+title: security-demo
+version: 1.0
+description: enable client id and client secret
+baseUri:
+
+securitySchemes:
+  security-header: !include securitySchemas/clientSecretEnforcement.raml
+securedBy:
+  - security-header
+     
+
+/cms:
+  get:
+    description: this will return cms database records
+    queryParameters:
+      sourceSystem:
+        description: api calling source system
+        required: true
+        type: string
+        example:
+          "CMS"
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            example:
+              [{
+                "id": "200",
+                "name": "layak"
+
+              }]
+      400:
+        body:
+          application/json:
+                example:
+                      "error"    
+      500:
+        body:
+          application/json:
+            example:
+              "Internal Error"
+                                                                    
